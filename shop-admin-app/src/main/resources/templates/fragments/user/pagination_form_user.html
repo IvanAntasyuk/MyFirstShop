@@ -1,0 +1,35 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div class="col-12" th:fragment="pagination_form_user">
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item "
+                th:classappend="${!users.hasPrevious()} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{user(page=${users.getNumber()},size=${users.size},
+                        usernameFilter=${param.usernameFilter},minAge=${param.minAge},maxAge=${param.maxAge}
+                        )}">Previous</a>
+            </li>
+
+            <li th:each="num : ${#numbers.sequence(1,users.getTotalPages())}"
+                th:classappend="${num == users.number+1} ? 'active'"
+                class="page-item">
+                <a class="page-link"
+                   th:text="${num}"
+                   th:href="@{user(page=${num},size=${users.size},
+                        usernameFilter=${param.usernameFilter},minAge=${param.minAge},maxAge=${param.maxAge}
+                        )}">1</a>
+            </li>
+
+            <li class="page-item"
+                th:classappend="${!users.hasNext()} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{user(page=${users.getNumber()+2},size=${users.size},
+                        usernameFilter=${param.usernameFilter},minAge=${param.minAge},maxAge=${param.maxAge}
+                        )}">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+</html>

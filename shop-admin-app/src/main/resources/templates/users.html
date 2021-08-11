@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="js inlinesvg">
+
+<head th:replace="fragments/header"></head>
+
+<body>
+
+<nav th:replace="fragments/heading"></nav>
+<div class="container-fluid-full">
+    <div th:replace="fragments/navigation"></div>
+
+    <div class="container">
+        <div class="row py-2">
+            <div class="col-12" th:replace="fragments/add::add('user')"></div>
+
+            <div th:replace="fragments/user/user_filter"></div>
+
+            <div class="col-12">
+                <table class="table table-bordered my-2">
+                    <thead>
+                    <tr>
+                        <th scope="col" th:replace="fragments/user/sort_header_user::sort_header_user('Id','id')"></th>
+                        <th scope="col" th:replace="fragments/user/sort_header_user::sort_header_user('Username','username')"></th>
+                        <th scope="col" th:replace="fragments/user/sort_header_user::sort_header_user('Age','age')"></th>
+                    </tr>
+                    </thead>
+                    <tbody th:replace="fragments/user/user_table"></tbody>
+                </table>
+            </div>
+
+            <div th:replace="fragments/user/pagination_form_user">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<script src="js/jquery-1.9.1.min.js"></script>
+
+</body>
+</html>

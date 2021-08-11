@@ -1,0 +1,9 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th scope="col" th:fragment="sort_header_product(header,column)">[[${header}]]
+  <a th:href="@{/product(page=${param.page},size=${products.size},
+                        productNameFilter=${param.productNameFilter},minCost=${param.minCost},maxAge=${param.Cost},sortField=${column}
+                        ,sortIsDown=${param.sortIsDown!=null ? (param.sortIsDown ? false : true) : true}
+                        )}"><i class="fa" th:classappend="${param.sortIsDown!=null ? (param.sortIsDown ? false : true) : true} ? 'fa-sort-down' :'fa-sort-up'"></i></a>
+</th>
+</html>

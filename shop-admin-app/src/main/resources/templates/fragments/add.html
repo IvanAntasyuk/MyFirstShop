@@ -1,0 +1,7 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div class="col-12" th:fragment="add(object)">
+  <a class="btn btn-primary" th:href="@{'/'+${object}+'/new'}">Add [[${object}]]</a>
+</div>
+
+</html>

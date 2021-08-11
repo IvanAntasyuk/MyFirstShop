@@ -1,0 +1,21 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<tbody th:fragment="product_table">
+<tr th:unless="${products.isEmpty()}" th:each="singlProduct : ${products}">
+    <th scope="row" th:text="${singlProduct.id}">1</th>
+    <td th:text="${singlProduct.title}">Banana</td>
+    <td th:text="${singlProduct.cost}">125</td>
+    <td>
+        <a class="btn btn-success" th:href="@{/product/{id}(id = ${singlProduct.id})}"><i class="fas fa-edit"></i></a>
+        <a class="btn btn-danger" th:href="@{/product/del/{id}(id = ${singlProduct.id})}"><i class="far fa-trash-alt"></i></a>
+    </td>
+</tr>
+
+<tr th:if="${products.isEmpty()}">
+    <td colspan="4">No data</td>
+</tr>
+
+</tbody>
+
+</html>
