@@ -29,10 +29,21 @@ public class Product {
     @JoinColumn(name="category_id")
     private Category category;
 
+    @ManyToOne
+    @JoinColumn(name="brand_id")
+    private Brand brand;
+
     public Product(String title, BigDecimal cost, Category category) {
         this.title = title;
         this.cost = cost;
         this.category=category;
+    }
+
+    public Product(String title, BigDecimal cost, Category category,Brand brand) {
+        this.title = title;
+        this.cost = cost;
+        this.category=category;
+        this.brand=brand;
     }
 
     public Product() {
