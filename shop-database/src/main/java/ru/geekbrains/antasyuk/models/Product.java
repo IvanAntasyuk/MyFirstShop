@@ -18,8 +18,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 512,nullable = false)
+    @Column(name="product_title",length = 512,nullable = false)
     private String title;
+
+    @Column
+    private String description;
 
     @Column(nullable = false)
     private BigDecimal cost;

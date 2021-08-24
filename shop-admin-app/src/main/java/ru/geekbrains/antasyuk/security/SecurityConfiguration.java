@@ -21,7 +21,7 @@ public class SecurityConfiguration {
     public void authConfig(AuthenticationManagerBuilder auth,
                            PasswordEncoder passwordEncoder,
                            UserAuthService userAuthService) throws Exception {
-        //in memory provaider
+
         auth.inMemoryAuthentication()
                 .withUser("mem_user")
                 .password(passwordEncoder.encode("mem_user")) //шифрование пароля в оперативной памяти
@@ -31,7 +31,7 @@ public class SecurityConfiguration {
                 .password(passwordEncoder.encode("mem_guest"))
                 .roles("GUEST");
 
-        auth.userDetailsService(userAuthService); // auth for users in list
+        auth.userDetailsService(userAuthService);
     }
 
     @Configuration
@@ -46,6 +46,7 @@ public class SecurityConfiguration {
                     .antMatchers("/user/**").hasAnyRole("ADMIN","SUPER_ADMIN")
                     .antMatchers("/category/**").hasAnyRole("ADMIN","SUPER_ADMIN")
                     .antMatchers("/role/**").hasAnyRole("ADMIN","SUPER_ADMIN")
+                    .antMatchers("/brand/**").hasAnyRole("ADMIN","SUPER_ADMIN")
                     .antMatchers("/access_denied").authenticated()
                     .and()
                     .formLogin()

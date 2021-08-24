@@ -14,15 +14,18 @@ public class Brand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 512,nullable = false)
+    @Column(name="brand_name",length = 512,nullable = false)
     private String brandName;
 
     @OneToMany(mappedBy = "brand")
     List<Product> products;
 
-    public Brand(String brandName) {
+    public Brand(Long id,String brandName) {
+        this.id=id;
         this.brandName = brandName;
     }
 
     public Brand(){}
+
+
 }

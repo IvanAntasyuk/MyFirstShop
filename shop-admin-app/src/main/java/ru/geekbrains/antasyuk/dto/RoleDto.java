@@ -1,4 +1,4 @@
-package ru.geekbrains.antasyuk.controllers;
+package ru.geekbrains.antasyuk.dto;
 
 import java.util.Objects;
 
@@ -45,4 +45,3 @@ public class RoleDto {
         return Objects.hash(name);
     }
 }
-

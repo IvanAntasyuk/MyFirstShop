@@ -1,7 +1,7 @@
 package ru.geekbrains.antasyuk.interfaces;
 
 import org.springframework.data.domain.Page;
-import ru.geekbrains.antasyuk.controllers.UserDto;
+import ru.geekbrains.antasyuk.dto.UserDto;
 import ru.geekbrains.antasyuk.models.UserParams;
 import java.util.List;
 import java.util.Optional;

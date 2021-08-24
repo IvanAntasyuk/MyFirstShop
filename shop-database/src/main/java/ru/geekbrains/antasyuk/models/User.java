@@ -17,7 +17,7 @@ public class User {
     @Column(nullable = true)
     private Integer age;
 
-    @Column(length = 512,nullable = false)
+    @Column(name="user_name",length = 512,nullable = false)
     private String username;
 
     @Column

@@ -1,5 +1,6 @@
 package ru.geekbrains.antasyuk.interfaces;
 
+import ru.geekbrains.antasyuk.dto.CategoryDto;
 import ru.geekbrains.antasyuk.models.Category;
 
 
@@ -8,12 +9,12 @@ import java.util.Optional;
 
 public interface CategoryInterface {
 
-    List<Category> findAll();
+    List<CategoryDto> findAll(Integer page, Integer size, String sortField);
 
-    void save(Category category);
+    void save(CategoryDto category);
 
     void deleteById(Long id);
 
-    Optional<Category> findById(Long id);
+    Optional<CategoryDto> findById(Long id);
 
 }

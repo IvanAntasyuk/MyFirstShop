@@ -5,13 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.antasyuk.dto.CategoryDto;
 import ru.geekbrains.antasyuk.models.Category;
 import ru.geekbrains.antasyuk.models.Product;
 import ru.geekbrains.antasyuk.services.CategoryService;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/category")
@@ -26,19 +26,24 @@ public class CategoryController {
     }
 
     @GetMapping
-    public String listPage(Model model){
-        model.addAttribute("categorys",categoryService.findAll());
+    public String listPage(@RequestParam("page") Optional<Integer> page,
+                           @RequestParam("size") Optional<Integer> size,
+                           @RequestParam("sortField") Optional<String> sortField, Model model){
+        model.addAttribute("categorys", categoryService.findAll(
+                page.orElse(1) - 1,
+                size.orElse(5),
+                sortField.filter(fld -> !fld.isBlank()).orElse("id")));
         return "category";
     }
 
     @GetMapping("/new")
     public String newCategoryForm(Model model){
-        model.addAttribute("category",new Category());
+        model.addAttribute("category",new CategoryDto());
         return "category_form";
     }
 
     @PostMapping("/add")
-    public String update(Category category) {
+    public String update(CategoryDto category) {
         if(category.getId()==null){
             logger.info("Add product"+category);
             categoryService.save(category);
@@ -57,6 +62,8 @@ public class CategoryController {
 
     @PostMapping("/del/{id}")
     public String deleteCategory(@PathVariable("id")Long id){
+        logger.info("Deleting category with id {}", id);
+
         categoryService.deleteById(id);
         return "redirect:/category";
     }

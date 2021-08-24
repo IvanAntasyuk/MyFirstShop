@@ -8,14 +8,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.geekbrains.antasyuk.controllers.RoleDto;
-import ru.geekbrains.antasyuk.controllers.UserDto;
+import ru.geekbrains.antasyuk.dto.RoleDto;
+import ru.geekbrains.antasyuk.dto.UserDto;
 import ru.geekbrains.antasyuk.interfaces.RoleRepository;
 import ru.geekbrains.antasyuk.interfaces.UserInterface;
 import ru.geekbrains.antasyuk.interfaces.UserRepository;
 import ru.geekbrains.antasyuk.models.User;
 import ru.geekbrains.antasyuk.models.UserParams;
-import ru.geekbrains.antasyuk.models.UserSpecifications;
+import ru.geekbrains.antasyuk.UserSpecifications;
 
 
 import java.util.List;
@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserInterface {
+
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -48,7 +49,7 @@ public class UserService implements UserInterface {
     public Page<UserDto> findWithFilter(UserParams userParams) {
         Specification<User> spec = Specification.where(null);
 
-        if (userParams.getUsernameFilter() != null && !userParams.getUsernameFilter().isBlank()) {
+        if (userParams.getUsernameFilter() != null && !userParams.getUsernameFilter().isEmpty()) {
             spec = spec.and(UserSpecifications.usernamePrefix(userParams.getUsernameFilter()));
         }
         if (userParams.getMinAge() != null) {
@@ -64,7 +65,7 @@ public class UserService implements UserInterface {
                             Optional.ofNullable(userParams.getPage()).orElse(1) - 1,
                             Optional.ofNullable(userParams.getSize()).orElse(3),
                             Sort.by(Sort.Direction.ASC,Optional.ofNullable(userParams.getSortField())
-                                    .filter(c -> !c.isBlank())
+                                    .filter(c -> !c.isEmpty())
                                     .orElse("id")))).map(user -> new UserDto(user.getId(),user.getUsername(),user.getAge(),mapRolesDto(user)));
         }else{
             return userRepository.findAll(spec,
@@ -72,7 +73,7 @@ public class UserService implements UserInterface {
                             Optional.ofNullable(userParams.getPage()).orElse(1) - 1,
                             Optional.ofNullable(userParams.getSize()).orElse(3),
                             Sort.by(Sort.Direction.DESC,Optional.ofNullable(userParams.getSortField())
-                                    .filter(c -> !c.isBlank())
+                                    .filter(c -> !c.isEmpty())
                                     .orElse("id")))).map(user -> new UserDto(user.getId(),user.getUsername(),user.getAge(),mapRolesDto(user)));
         }
     }
