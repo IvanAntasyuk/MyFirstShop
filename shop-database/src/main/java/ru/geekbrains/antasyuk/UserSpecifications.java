@@ -1,6 +1,7 @@
-package ru.geekbrains.antasyuk.models;
+package ru.geekbrains.antasyuk;
 
 import org.springframework.data.jpa.domain.Specification;
+import ru.geekbrains.antasyuk.models.User;
 
 public final class UserSpecifications {
     public static Specification<User> usernamePrefix(String prefix) {

@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import ru.geekbrains.antasyuk.dto.RoleDto;
+import ru.geekbrains.antasyuk.dto.UserDto;
 import ru.geekbrains.antasyuk.exceptions.NotFoundException;
 import ru.geekbrains.antasyuk.interfaces.RoleRepository;
 import ru.geekbrains.antasyuk.models.UserParams;
@@ -58,7 +60,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-  //  @Secured("ROLE_SUPER_ADMIN")
+    //  @Secured("ROLE_SUPER_ADMIN")
     public String editUser(@PathVariable("id") Long id, Model model) {
         logger.info("Edit user page requested");
 

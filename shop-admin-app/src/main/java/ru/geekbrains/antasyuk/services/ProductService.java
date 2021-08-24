@@ -4,15 +4,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
+
 import org.springframework.stereotype.Service;
+import ru.geekbrains.antasyuk.dto.BrandDto;
+import ru.geekbrains.antasyuk.dto.CategoryDto;
+import ru.geekbrains.antasyuk.dto.ProductDto;
+import ru.geekbrains.antasyuk.exceptions.NotFoundException;
+import ru.geekbrains.antasyuk.interfaces.BrandRepository;
+import ru.geekbrains.antasyuk.interfaces.CategoryRepository;
 import ru.geekbrains.antasyuk.interfaces.ProductInterface;
 import ru.geekbrains.antasyuk.interfaces.ProductRepository;
+import ru.geekbrains.antasyuk.models.Brand;
+import ru.geekbrains.antasyuk.models.Category;
 import ru.geekbrains.antasyuk.models.Product;
-import ru.geekbrains.antasyuk.models.ProductParams;
-import ru.geekbrains.antasyuk.models.ProductSpecifications;
 
 
+
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,60 +29,59 @@ public class ProductService implements ProductInterface {
 
     private final ProductRepository productRepository;
 
+    private final CategoryRepository categoryRepository;
+
+    private final BrandRepository brandRepository;
+
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository,
+                          CategoryRepository categoryRepository,
+                          BrandRepository brandRepository) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
+        this.brandRepository  = brandRepository;
     }
 
     @Override
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public Page<ProductDto> findAll(Integer page, Integer size, String sortField) {
+        return productRepository.findAll(PageRequest.of(page, size, Sort.by(sortField)))
+                .map(product -> new ProductDto(product.getId(),
+                        product.getTitle(),
+                        product.getDescription(),
+                        product.getCost(),
+                        new CategoryDto(product.getCategory().getId(), product.getCategory().getCategoryName()),
+                        new BrandDto(product.getBrand().getId(),product.getBrand().getBrandName()))
+                );
     }
 
     @Override
-    public Page<Product> findWithFilter(ProductParams productParams) {
-
-        Specification<Product> spec = Specification.where(null);
-
-        if (productParams.getProductNameFilter() != null && !productParams.getProductNameFilter().isBlank()) {
-            spec = spec.and(ProductSpecifications.productPrefix(productParams.getProductNameFilter()));
-        }
-        if (productParams.getMinCost() != null) {
-            spec = spec.and(ProductSpecifications.minCost(productParams.getMinCost()));
-        }
-        if (productParams.getMaxCost() != null ) {
-            spec = spec.and(ProductSpecifications.maxCost(productParams.getMaxCost()));
-        }
-
-        if(productParams.getSortIsDown()==null || productParams.getSortIsDown()){
-            return productRepository.findAll(spec,
-                    PageRequest.of(
-                            Optional.ofNullable(productParams.getPage()).orElse(1) - 1,
-                            Optional.ofNullable(productParams.getSize()).orElse(3),
-                            Sort.by(Sort.Direction.ASC,Optional.ofNullable(productParams.getSortField())
-                                    .filter(c -> !c.isBlank())
-                                    .orElse("id"))));
-        }
-        else{
-            return productRepository.findAll(spec,
-                    PageRequest.of(
-                            Optional.ofNullable(productParams.getPage()).orElse(1) - 1,
-                            Optional.ofNullable(productParams.getSize()).orElse(3),
-                            Sort.by(Sort.Direction.DESC,Optional.ofNullable(productParams.getSortField())
-                                    .filter(c -> !c.isBlank())
-                                    .orElse("id"))));
-        }
-
-
+    public Optional<ProductDto> findById(Long id) {
+        return productRepository.findById(id)
+                .map(product -> new ProductDto(product.getId(),
+                        product.getTitle(),
+                        product.getDescription(),
+                        product.getCost(),
+                        new CategoryDto(product.getCategory().getId(), product.getCategory().getCategoryName()),
+                        new BrandDto(product.getBrand().getId(),product.getBrand().getBrandName())));
     }
 
     @Override
-    public Optional<Product> findById(Long id) {
-        return productRepository.findById(id);
-    }
+    @Transactional
+    public void save(ProductDto productDto) {
+        Product product = (productDto.getId() != null) ? productRepository.findById(productDto.getId())
+                .orElseThrow(() -> new NotFoundException("")) : new Product();
+        Category category = categoryRepository.findById(productDto.getCategory().getId())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+        Brand brand = brandRepository.findById(productDto.getBrand().getId())
+                .orElseThrow(() -> new RuntimeException("Brand not found"));
 
-    @Override
-    public void save(Product product) {
+        product.setTitle(productDto.getTitle());
+        product.setCategory(category);
+        product.setCost(productDto.getCost());
+        product.setDescription(productDto.getDescription());
+        product.setCategory(category);
+        product.setBrand(brand);
+
         productRepository.save(product);
     }
 

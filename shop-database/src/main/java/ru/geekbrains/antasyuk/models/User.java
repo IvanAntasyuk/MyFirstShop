@@ -3,7 +3,6 @@ package ru.geekbrains.antasyuk.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Data
@@ -15,11 +14,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer age;
 
-    @NotBlank
-    @Column(length = 512,nullable = false)
+    @Column(name="user_name",length = 512,nullable = false)
     private String username;
 
     @Column

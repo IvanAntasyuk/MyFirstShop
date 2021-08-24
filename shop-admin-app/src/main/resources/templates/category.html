@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-
 <head th:replace="fragments/header"></head>
 
 <body>
@@ -24,14 +23,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr th:unless="${categorys.isEmpty()}" th:each="singlCategory : ${categorys}">
-                        <th scope="row" th:text="${singlCategory.id}">1</th>
-                            <td th:text="${singlCategory.categoryName}">None</td>
-                            <td>
-                                <a class="btn btn-success" th:href="@{/category/{id}(id = ${singlCategory.id})}"><i class="fas fa-edit"></i></a>
-                                <a class="btn btn-danger" th:href="@{/category/del/{id}(id = ${singlCategory.id})}"><i class="far fa-trash-alt"></i></a>
-                            </td>
-                    </tr>
+                <tr th:unless="${categorys.isEmpty()}" th:each="singlCategory : ${categorys}">
+                    <th scope="row" th:text="${singlCategory.id}">1</th>
+                    <td th:text="${singlCategory.categoryName}">None</td>
+                    <td>
+                        <a class="btn btn-success" th:href="@{/category/{id}(id = ${singlCategory.id})}"><i
+                                class="fas fa-edit"></i></a>
+                        <form class="d-inline" th:method="post" th:action="@{/category/del/{id}(id = ${singlCategory.id})}">
+                            <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                        </form>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

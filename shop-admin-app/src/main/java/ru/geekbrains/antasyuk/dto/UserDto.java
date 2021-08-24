@@ -1,12 +1,10 @@
-package ru.geekbrains.antasyuk.controllers;
+package ru.geekbrains.antasyuk.dto;
 
 import lombok.Data;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
-
-//Data transfer object
 
 @Data
 public class UserDto {

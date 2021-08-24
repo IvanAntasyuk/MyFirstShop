@@ -17,7 +17,7 @@ public class Role {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String name;
 
     @JsonIgnore

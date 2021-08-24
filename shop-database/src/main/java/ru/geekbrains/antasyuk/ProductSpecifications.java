@@ -1,6 +1,7 @@
-package ru.geekbrains.antasyuk.models;
+package ru.geekbrains.antasyuk;
 
 import org.springframework.data.jpa.domain.Specification;
+import ru.geekbrains.antasyuk.models.Product;
 
 public  final class ProductSpecifications {
 
