@@ -17,12 +17,13 @@ import ru.geekbrains.antasyuk.interfaces.ProductRepository;
 import ru.geekbrains.antasyuk.models.Brand;
 import ru.geekbrains.antasyuk.models.Category;
 import ru.geekbrains.antasyuk.models.Product;
-
+import ru.geekbrains.antasyuk.service.PictureService;
 
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements ProductInterface {
@@ -33,13 +34,17 @@ public class ProductService implements ProductInterface {
 
     private final BrandRepository brandRepository;
 
+    private final  PictureService pictureService;
+
     @Autowired
     public ProductService(ProductRepository productRepository,
                           CategoryRepository categoryRepository,
-                          BrandRepository brandRepository) {
+                          BrandRepository brandRepository,
+                          PictureService pictureService) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.brandRepository  = brandRepository;
+        this.pictureService=pictureService;
     }
 
     @Override
@@ -50,7 +55,8 @@ public class ProductService implements ProductInterface {
                         product.getDescription(),
                         product.getCost(),
                         new CategoryDto(product.getCategory().getId(), product.getCategory().getCategoryName()),
-                        new BrandDto(product.getBrand().getId(),product.getBrand().getBrandName()))
+                        new BrandDto(product.getBrand().getId(),product.getBrand().getBrandName()),
+                        product.getPictures().stream().map(picture ->picture.getId()).collect(Collectors.toList()))
                 );
     }
 
@@ -62,7 +68,8 @@ public class ProductService implements ProductInterface {
                         product.getDescription(),
                         product.getCost(),
                         new CategoryDto(product.getCategory().getId(), product.getCategory().getCategoryName()),
-                        new BrandDto(product.getBrand().getId(),product.getBrand().getBrandName())));
+                        new BrandDto(product.getBrand().getId(),product.getBrand().getBrandName()),
+                        product.getPictures().stream().map(picture ->picture.getId()).collect(Collectors.toList())));
     }
 
     @Override
@@ -81,6 +88,21 @@ public class ProductService implements ProductInterface {
         product.setDescription(productDto.getDescription());
         product.setCategory(category);
         product.setBrand(brand);
+
+        if (productDto.getNewPictures() != null) {
+            for (MultipartFile newPicture : productDto.getNewPictures()) {
+                try {
+                    product.getPictures().add(new Picture(null,
+                            newPicture.getOriginalFilename(),
+                            newPicture.getContentType(),
+                            pictureService.createPicture(newPicture.getBytes()),
+                            product
+                    ));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        }
 
         productRepository.save(product);
     }

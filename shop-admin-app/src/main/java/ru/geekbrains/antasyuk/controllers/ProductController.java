@@ -60,8 +60,12 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public String editProduct(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("product", productService.findById(id));
+        Optional<ProductDto> productDto = productService.findById(id);
+        model.addAttribute("product", productDto);
         model.addAttribute("categorys", categoryRepository.findAll());
+        model.addAttribute("brands", brandRepository.findAll());
+        model.addAttribute("pictures", productDto.get().getPictures());
+        model.addAttribute("productId", productDto.get().getId());
         return "product_form";
     }
 
@@ -89,5 +93,6 @@ public class ProductController {
         productService.deleteById(id);
         return "redirect:/product";
     }
+
 
 }
