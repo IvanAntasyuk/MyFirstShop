@@ -4,41 +4,42 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import ru.geekbrains.antasyuk.interfaces.PictureRepasitory;
+import ru.geekbrains.antasyuk.interfaces.PictureRepository;
+import ru.geekbrains.antasyuk.interfaces.PictureService;
 import ru.geekbrains.antasyuk.models.Picture;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class PictureServiceFileImpl implements PictureService {
+
+    private static final Logger logger = LoggerFactory.getLogger(PictureService.class);
+
     @Value("${picture.storage.path}")
     private String storagePath;
 
-    private final PictureRepasitory pictureRepasitory;
-    private static final Logger logger = LoggerFactory.getLogger(PictureServiceFileImpl.class);
+    private final PictureRepository pictureRepository;
 
     @Autowired
-    public PictureServiceFileImpl(PictureRepasitory pictureRepasitory) {
-        this.pictureRepasitory = pictureRepasitory;
+    public PictureServiceFileImpl(PictureRepository pictureRepository) {
+        this.pictureRepository = pictureRepository;
     }
 
     @Override
     public Optional<String> getPictureContentTypeById(long id) {
-        return pictureRepasitory.findById(id)
+        return pictureRepository.findById(id)
                 .map(Picture::getContentType);
     }
 
     @Override
     public Optional<byte[]> getPictureDataById(long id) {
-        return pictureRepasitory.findById(id)
+        return pictureRepository.findById(id)
                 .map(pic -> Paths.get(storagePath, pic.getStorageUUID()))
                 .filter(Files::exists)
                 .map(path -> {
@@ -51,7 +52,6 @@ public class PictureServiceFileImpl implements PictureService {
                 });
     }
 
-
     @Override
     public String createPicture(byte[] picture) {
         String fileName = UUID.randomUUID().toString();
@@ -63,4 +63,10 @@ public class PictureServiceFileImpl implements PictureService {
         }
         return fileName;
     }
+
+    @Override
+    public void deletePicture(Long id) {
+        pictureRepository.deleteById(id);
+    }
+
 }

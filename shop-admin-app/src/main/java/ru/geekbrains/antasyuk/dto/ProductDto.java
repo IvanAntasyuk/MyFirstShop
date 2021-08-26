@@ -22,17 +22,20 @@ public class ProductDto {
 
     private BrandDto brand;
 
-    private MultipartFile[]  newPictures;
+    private List<Long> pictures;
 
-    private List<Integer> pictures;
+    private MultipartFile[] newPictures;
 
-    public ProductDto(Long id, String title, String description, BigDecimal cost, CategoryDto category,BrandDto brand) {
+
+    public ProductDto(Long id, String title, String description, BigDecimal cost,
+                      CategoryDto category, BrandDto brand, List<Long> pictures) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.cost = cost;
         this.category = category;
-        this.brand=brand;
+        this.brand = brand;
+        this.pictures = pictures;
     }
 
     public ProductDto() {

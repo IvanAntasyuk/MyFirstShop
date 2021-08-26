@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ru.geekbrains.antasyuk.models.Brand;
 import ru.geekbrains.antasyuk.models.Picture;
 
-public interface PictureRepasitory extends JpaRepository<Picture,Long> {
+public interface PictureRepository extends JpaRepository<Picture,Long> {
 }

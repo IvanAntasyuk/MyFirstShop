@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.geekbrains.antasyuk.dto.BrandDto;
 import ru.geekbrains.antasyuk.dto.CategoryDto;
 import ru.geekbrains.antasyuk.dto.ProductDto;
@@ -16,12 +17,13 @@ import ru.geekbrains.antasyuk.interfaces.ProductInterface;
 import ru.geekbrains.antasyuk.interfaces.ProductRepository;
 import ru.geekbrains.antasyuk.models.Brand;
 import ru.geekbrains.antasyuk.models.Category;
+import ru.geekbrains.antasyuk.models.Picture;
 import ru.geekbrains.antasyuk.models.Product;
-import ru.geekbrains.antasyuk.service.PictureService;
+import ru.geekbrains.antasyuk.interfaces.PictureService;
 
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 

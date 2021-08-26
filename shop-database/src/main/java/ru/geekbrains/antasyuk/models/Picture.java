@@ -17,7 +17,7 @@ public class Picture {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "contentType", nullable = false)
+    @Column(name = "content_type", nullable = false)
     private String contentType;
 
     @Column(name = "storageUUID")

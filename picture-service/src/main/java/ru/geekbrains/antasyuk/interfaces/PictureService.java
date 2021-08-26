@@ -1,4 +1,4 @@
-package ru.geekbrains.antasyuk.service;
+package ru.geekbrains.antasyuk.interfaces;
 
 import java.util.Optional;
 
@@ -9,4 +9,7 @@ public interface PictureService {
     Optional<byte[]> getPictureDataById(long id);
 
     String createPicture(byte[] picture);
+
+    void deletePicture(Long id);
+
 }

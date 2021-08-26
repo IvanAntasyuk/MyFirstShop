@@ -45,4 +45,14 @@
         <tagDatabase tag="v-.6.0"/>
     </changeSet>
 
+    <include file="v-6.1/root.changelog.v-6.1.xml" relativeToChangelogFile="true"/>
+    <changeSet id="610" author="ivan_antasyuk">
+        <tagDatabase tag="v-.6.0"/>
+    </changeSet>
+
+    <include file="v-6.2/root.changelog.v-6.2.xml" relativeToChangelogFile="true"/>
+    <changeSet id="620" author="ivan_antasyuk">
+        <tagDatabase tag="v-.6.2"/>
+    </changeSet>
+
 </databaseChangeLog>
