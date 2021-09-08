@@ -9,9 +9,11 @@ import ru.geekbrains.antasyuk.interfaces.PictureRepository;
 import ru.geekbrains.antasyuk.interfaces.PictureService;
 import ru.geekbrains.antasyuk.models.Picture;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.UUID;
@@ -65,7 +67,13 @@ public class PictureServiceFileImpl implements PictureService {
     }
 
     @Override
-    public void deletePicture(Long id) {
+    @Transactional
+    public void deletePicture(Long id){
+        try {
+            Files.delete(Path.of(storagePath+"/"+pictureRepository.findById(id).get().getName()));
+        } catch (IOException ex) {
+            logger.error("File not find in picture folder ",ex);
+        }
         pictureRepository.deleteById(id);
     }
 

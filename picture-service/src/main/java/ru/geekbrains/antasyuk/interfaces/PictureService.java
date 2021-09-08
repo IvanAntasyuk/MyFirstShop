@@ -1,5 +1,6 @@
 package ru.geekbrains.antasyuk.interfaces;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public interface PictureService {
@@ -10,6 +11,6 @@ public interface PictureService {
 
     String createPicture(byte[] picture);
 
-    void deletePicture(Long id);
+    void deletePicture(Long id) throws IOException;
 
 }

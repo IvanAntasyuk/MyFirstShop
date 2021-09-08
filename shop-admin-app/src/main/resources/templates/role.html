@@ -7,35 +7,40 @@
 
 <nav th:replace="fragments/heading"></nav>
 
-<div th:replace="fragments/navigation"></div>
 
-<div class="container">
-    <div class="row py-2">
-        <div class="col-12" th:replace="fragments/add::add('role')"></div>
 
-        <div class="col-12">
-            <table class="table table-bordered my-2">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Category Name</th>
-                    <th scope="col">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:unless="${roles.isEmpty()}" th:each="singlRole : ${roles}">
-                    <th scope="row" th:text="${singlRole.id}">1</th>
-                    <td th:text="${singlRole.name}">None</td>
-                    <td>
-                        <a class="btn btn-success" th:href="@{/role/{id}(id = ${singlRole.id})}"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-danger" th:href="@{/role/del/{id}(id = ${singlRole.id})}"><i class="far fa-trash-alt"></i></a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+<div class="container row align-items-start">
+    <div th:replace="fragments/navigation"></div>
+    <div class="container">
+        <div class="row py-2">
+            <div class="col-12" th:replace="fragments/add::add('role')"></div>
+
+            <div class="col-12">
+                <table class="table table-bordered my-2">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Category Name</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:unless="${roles.isEmpty()}" th:each="singlRole : ${roles}">
+                        <th scope="row" th:text="${singlRole.id}">1</th>
+                        <td th:text="${singlRole.name}">None</td>
+                        <td>
+                            <a class="btn btn-success" th:href="@{/role/{id}(id = ${singlRole.id})}"><i class="fas fa-edit"></i></a>
+                            <a class="btn btn-danger" th:href="@{/role/del/{id}(id = ${singlRole.id})}"><i class="far fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
