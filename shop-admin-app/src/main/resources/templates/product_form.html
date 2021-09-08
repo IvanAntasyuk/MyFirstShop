@@ -7,72 +7,88 @@
 
 <nav th:replace="fragments/heading"></nav>
 
-<div th:replace="fragments/navigation"></div>
 
-<div class="container">
-    <div class="row py-2">
-        <div class="col-12">
-            <form th:action="@{/product/add}" method="post" th:object="${product}" enctype="multipart/form-data">
-                <input type="hidden" id="id" th:field="*{id}">
-                <div class="form-group">
-                    <label>Product name</label>
-                    <input type="text" class="form-control" id="title" th:field="*{title}"  placeholder="Enter product name">
-                </div>
-                <div class="form-group">
-                    <label>Product description</label>
-                    <textarea type="text" class="text form-control" id="description" th:field="*{description}"  placeholder="Enter product description"/>
-                </div>
-                <div class="form-group" th:marginheight="5">
-                    <label>Cost</label>
-                    <input type="number" class="form-control" id="cost" th:field="*{cost}" placeholder="Enter cost">
-                </div>
-                <div class="form-group">
-                    <label for="category">Category</label>
-                    <select multiple class="form-control" id="category" th:field="*{category}" required>
-                        <option th:each="category : ${categorys}"
-                                th:text="${category.categoryName}"
-                                th:value="${category.id}+';'+${category.categoryName}"></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="category">Brand</label>
-                    <select multiple class="form-control" id="brand" th:field="*{brand}" required>
-                        <option th:each="brand : ${brands}"
-                                th:text="${brand.brandName}"
-                                th:value="${brand.id}+';'+${brand.brandName}"></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="newPictures">Product image</label>
-                    <input th:field="*{newPictures}" type="file" class="form-control" id="newPictures"
-                           placeholder="Upload new product picture" multiple>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+
+<div class="container row align-items-start">
+    <div th:replace="fragments/navigation"></div>
+    <div class="container">
+        <div class="row py-2">
             <div class="col-12">
-                <label>Product pictures</label>
-                <table class="table table-bordered my-2">
-                    <tr>
-                        <th>Image</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                    <tbody>
-                    <tr th:each="pictureId : ${pictures}">
-                        <td>
-                            <img th:src="@{/picture/{id}(id = ${pictureId})}" height="250px" alt="Some image">
-                        </td>
-                        <td>
-                            <form class="d-inline" th:method="post" th:action="@{/picture/del/{id}(id = ${pictureId},productId=${productId})}">
-                                <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                            </form>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <form th:action="@{/product/add}" method="post" th:object="${product}" enctype="multipart/form-data">
+                    <input type="hidden" id="id" th:field="*{id}">
+                    <div class="form-group">
+                        <label>Product name</label>
+                        <input type="text" class="form-control" id="title" th:field="*{title}"  placeholder="Enter product name">
+                    </div>
+                    <div class="form-group">
+                        <label>Product description</label>
+                        <textarea type="text" class="text form-control" id="description" th:field="*{description}"  placeholder="Enter product description"/>
+                    </div>
+                    <div class="form-group" th:marginheight="5">
+                        <label>Cost</label>
+                        <input type="number" class="form-control" id="cost" th:field="*{cost}" placeholder="Enter cost">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select multiple class="form-control" id="category" th:field="*{category}" required>
+                            <option th:each="category : ${categorys}"
+                                    th:text="${category.categoryName}"
+                                    th:value="${category.id}+';'+${category.categoryName}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Brand</label>
+                        <select multiple class="form-control" id="brand" th:field="*{brand}" required>
+                            <option th:each="brand : ${brands}"
+                                    th:text="${brand.brandName}"
+                                    th:value="${brand.id}+';'+${brand.brandName}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPictures">Product image</label>
+                        <input th:field="*{newPictures}" type="file" class="form-control" id="newPictures"
+                               placeholder="Upload new product picture" multiple>
+                    </div>
+
+                    <select multiple class="form-control" id="mainpicture" th:field="*{mainPicture}" required>
+                        <option th:each="pictureId : ${pictures}"
+                                th:text="${pictureId}"
+                                th:value="${pictureId}"></option>
+                    </select>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+                <div class="col-12">
+                    <label>Product pictures</label>
+                    <table class="table table-bordered my-2">
+                        <tr>
+                            <th>Picture Number</th>
+                            <th>Image</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        <tbody>
+
+                        <tr th:each="pictureId : ${pictures}">
+                            <td><b th:text="${pictureId}"></b></td>
+                            <td>
+                                <img th:src="@{/picture/{id}(id = ${pictureId})}" height="250px" alt="Some image">
+                            </td>
+                            <td>
+                                <form class="d-inline" th:method="delete" th:action="@{/picture/{id}(id = ${pictureId},productId=${productId})}">
+                                    <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

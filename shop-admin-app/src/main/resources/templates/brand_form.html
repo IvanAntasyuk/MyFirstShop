@@ -10,21 +10,21 @@
 
 
 <div class="container row align-items-start">
-  <div th:replace="fragments/navigation"></div>
-  <div class="container">
-    <div class="row py-2">
-      <div class="col-12">
-        <form th:action="@{/brand/add}" method="post" th:object="${brand}">
-          <input type="hidden" id="id" th:field="*{id}">
-          <div class="form-group">
-            <label>Brand name</label>
-            <input type="text" class="form-control" id="title" th:field="*{brandName}"  placeholder="Enter brand name">
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
+    <div th:replace="fragments/navigation"></div>
+    <div class="container">
+        <div class="row py-2">
+            <div class="col-12">
+                <form th:action="@{/brand/add}" method="post" th:object="${brand}">
+                    <input type="hidden" id="id" th:field="*{id}">
+                    <div class="form-group">
+                        <label>Brand name</label>
+                        <input type="text" class="form-control" id="title" th:field="*{brandName}"  placeholder="Enter brand name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 
