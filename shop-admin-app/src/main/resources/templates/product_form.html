@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row py-2">
         <div class="col-12">
-            <form th:action="@{/product/add}" method="post" th:object="${product}">
+            <form th:action="@{/product/add}" method="post" th:object="${product}" enctype="multipart/form-data">
                 <input type="hidden" id="id" th:field="*{id}">
                 <div class="form-group">
                     <label>Product name</label>
@@ -42,8 +42,34 @@
                                 th:value="${brand.id}+';'+${brand.brandName}"></option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="newPictures">Product image</label>
+                    <input th:field="*{newPictures}" type="file" class="form-control" id="newPictures"
+                           placeholder="Upload new product picture" multiple>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+            <div class="col-12">
+                <label>Product pictures</label>
+                <table class="table table-bordered my-2">
+                    <tr>
+                        <th>Image</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    <tbody>
+                    <tr th:each="pictureId : ${pictures}">
+                        <td>
+                            <img th:src="@{/picture/{id}(id = ${pictureId})}" height="250px" alt="Some image">
+                        </td>
+                        <td>
+                            <form class="d-inline" th:method="post" th:action="@{/picture/del/{id}(id = ${pictureId},productId=${productId})}">
+                                <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

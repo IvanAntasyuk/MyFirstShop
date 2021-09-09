@@ -7,22 +7,26 @@
 
 <nav th:replace="fragments/heading"></nav>
 
-<div th:replace="fragments/navigation"></div>
 
-<div class="container">
-    <div class="row py-2">
-        <div class="col-12">
-            <form th:action="@{/category/add}" method="post" th:object="${category}">
-                <input type="hidden" id="id" th:field="*{id}">
-                <div class="form-group">
-                    <label>Category name</label>
-                    <input type="text" class="form-control" id="title" th:field="*{categoryName}"  placeholder="Enter category name">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+
+<div class="container row align-items-start">
+    <div th:replace="fragments/navigation"></div>
+    <div class="container">
+        <div class="row py-2">
+            <div class="col-12">
+                <form th:action="@{/category/add}" method="post" th:object="${category}">
+                    <input type="hidden" id="id" th:field="*{id}">
+                    <div class="form-group">
+                        <label>Category name</label>
+                        <input type="text" class="form-control" id="title" th:field="*{categoryName}"  placeholder="Enter category name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

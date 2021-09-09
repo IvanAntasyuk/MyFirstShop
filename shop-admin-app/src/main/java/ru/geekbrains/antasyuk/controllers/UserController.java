@@ -60,7 +60,6 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    //  @Secured("ROLE_SUPER_ADMIN")
     public String editUser(@PathVariable("id") Long id, Model model) {
         logger.info("Edit user page requested");
 
@@ -73,7 +72,6 @@ public class UserController {
     }
 
     @PostMapping("/add")
-//    @Secured("ROLE_SUPER_ADMIN")
     public String update(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model) {
 
         if (!userDto.getPassword().equals(userDto.getRepeatPassword())) {
@@ -92,7 +90,6 @@ public class UserController {
     }
 
     @GetMapping("/del/{id}")
-//    @Secured("ROLE_SUPER_ADMIN")
     public String delete(@PathVariable("id") Long id) {
         logger.info("Delete user id "+id);
         userService.deleteById(id);

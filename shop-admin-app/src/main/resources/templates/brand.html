@@ -7,38 +7,43 @@
 
 <nav th:replace="fragments/heading"></nav>
 
-<div th:replace="fragments/navigation"></div>
 
-<div class="container">
-  <div class="row py-2">
-    <div class="col-12" th:replace="fragments/add::add('brand')"></div>
 
-    <div class="col-12">
-      <table class="table table-bordered my-2">
-        <thead>
-        <tr>
-          <th>Id</th>
-          <th>Brand Name</th>
-          <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:unless="${brands.isEmpty()}" th:each="singlBrand : ${brands}">
-          <th scope="row" th:text="${singlBrand.id}">1</th>
-          <td th:text="${singlBrand.brandName}">None</td>
-          <td>
-            <a class="btn btn-success" th:href="@{/brand/{id}(id = ${singlBrand.id})}"><i
-                    class="fas fa-edit"></i></a>
-            <form class="d-inline" th:method="post" th:action="@{/brand/del/{id}(id = ${singlBrand.id})}">
-              <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-            </form>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+<div class="container row align-items-start">
+  <div th:replace="fragments/navigation"></div>
+  <div class="container">
+    <div class="row py-2">
+      <div class="col-12" th:replace="fragments/add::add('brand')"></div>
+
+      <div class="col-12">
+        <table class="table table-bordered my-2">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Brand Name</th>
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:unless="${brands.isEmpty()}" th:each="singlBrand : ${brands}">
+            <th scope="row" th:text="${singlBrand.id}">1</th>
+            <td th:text="${singlBrand.brandName}">None</td>
+            <td>
+              <a class="btn btn-success" th:href="@{/brand/{id}(id = ${singlBrand.id})}"><i
+                      class="fas fa-edit"></i></a>
+              <form class="d-inline" th:method="post" th:action="@{/brand/del/{id}(id = ${singlBrand.id})}">
+                <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+              </form>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
+
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
