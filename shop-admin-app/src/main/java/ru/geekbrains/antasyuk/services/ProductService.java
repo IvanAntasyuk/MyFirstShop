@@ -58,7 +58,8 @@ public class ProductService implements ProductInterface {
                         product.getCost(),
                         new CategoryDto(product.getCategory().getId(), product.getCategory().getCategoryName()),
                         new BrandDto(product.getBrand().getId(),product.getBrand().getBrandName()),
-                        product.getPictures().stream().map(picture ->picture.getId()).collect(Collectors.toList()))
+                        product.getPictures().stream().map(picture ->picture.getId()).collect(Collectors.toList()),
+                        product.getMainPicture())
                 );
     }
 
@@ -71,7 +72,8 @@ public class ProductService implements ProductInterface {
                         product.getCost(),
                         new CategoryDto(product.getCategory().getId(), product.getCategory().getCategoryName()),
                         new BrandDto(product.getBrand().getId(),product.getBrand().getBrandName()),
-                        product.getPictures().stream().map(picture ->picture.getId()).collect(Collectors.toList())));
+                        product.getPictures().stream().map(picture ->picture.getId()).collect(Collectors.toList()),
+                        product.getMainPicture()));
     }
 
     @Override
@@ -90,6 +92,7 @@ public class ProductService implements ProductInterface {
         product.setDescription(productDto.getDescription());
         product.setCategory(category);
         product.setBrand(brand);
+        product.setMainPicture(productDto.getMainPicture());
 
         if (productDto.getNewPictures() != null) {
             for (MultipartFile newPicture : productDto.getNewPictures()) {

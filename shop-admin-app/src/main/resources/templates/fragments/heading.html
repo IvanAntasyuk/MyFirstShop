@@ -4,15 +4,15 @@
   <div class="navbar-inner">
     <div class="container-fluid">
       <a class="brand" href="#">Admin panel</a>
-      <form id="navbarSupportedContent" class="nav pull-right" sec:authorize="isAuthenticated()"
-            th:action="@{/logout}" th:method="post">
-        <button class="button">
-          Logout <span sec:authentication="principal.username"></span> Roles: <span sec:authentication="principal.authorities"></span>
-        </button>
-      </form>
+       <form id="navbarSupportedContent" class="nav pull-right" sec:authorize="isAuthenticated()"
+          th:action="@{/logout}" th:method="post">
+          <button class="button">
+            Logout <span sec:authentication="principal.username"></span> Roles: <span sec:authentication="principal.authorities"></span>
+          </button>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 </div>
 
 
