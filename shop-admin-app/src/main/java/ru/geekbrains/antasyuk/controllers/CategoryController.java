@@ -60,7 +60,7 @@ public class CategoryController {
         return "category_form";
     }
 
-    @PostMapping("/del/{id}")
+    @DeleteMapping("/{id}")
     public String deleteCategory(@PathVariable("id")Long id){
         logger.info("Deleting category with id {}", id);
 

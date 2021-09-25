@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {ProductService} from "../../services/product.service";
-import {Product} from "../../model/product";
+import { Component, OnInit } from '@angular/core';
+import { Product } from '../../model/product';
+import { ProductService } from '../../services/product.service';
 
 export const PRODUCT_GALLERY_URL = 'product';
 
 @Component({
   selector: 'app-product-gallary',
   templateUrl: './product-gallary.component.html',
-  styleUrls: ['./product-gallary.component.scss']
+  styleUrls: [ './product-gallary.component.scss' ]
 })
 export class ProductGallaryComponent implements OnInit {
 
@@ -31,6 +31,7 @@ export class ProductGallaryComponent implements OnInit {
         this.isError = true;
       });
   }
+
   getPicture(product: Product) {
     const pictures = product.pictures;
 

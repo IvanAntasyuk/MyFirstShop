@@ -10,7 +10,7 @@ describe('ProductGallaryComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ ProductGallaryComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

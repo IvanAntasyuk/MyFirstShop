@@ -16,7 +16,7 @@
 
       <label for="priceFilter" class="form-label">Price</label>
       <div class="input-group mb-3" id="priceFilter">
-        <input type="number" class="form-control"  placeholder="From" aria-label="From">
+        <input type="number" class="form-control" placeholder="From" aria-label="From">
         <span class="input-group-text">-</span>
         <input type="number" class="form-control" placeholder="To" aria-label="To">
       </div>
@@ -28,58 +28,18 @@
   <div class="col-md-9 col-xs-12">
     <div class="row row-cols-1 row-cols-md-3 g-4">
 
-      <div class="col-md-9 col-xs-12">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-
-          <div *ngFor="let prod of products" class="col">
-            <div class="card">
-              <img class="card-img-top" src="{{getPicture(prod)}}"
-                   alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">{{prod.title}}</h5>
-                <h6 class="card-title">{{prod.brand.brandName}}</h6>
-                <p class="card-text">{{prod.description}}</p>
-                <a routerLink="/product/{{prod.id}}" class="btn btn-primary">View</a>
-                <a href="#" class="btn btn-primary">Add to card</a>
-              </div>
-            </div>
+      <div *ngFor="let prod of products" class="col">
+        <div class="card">
+          <img class="card-img-top" src="{{getPicture(prod)}}"
+               alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{prod.title}}</h5>
+            <p class="card-text">{{prod.description}}</p>
+            <a routerLink="/product/{{prod.id}}" class="btn btn-primary">View</a>
+            <a href="#" class="btn btn-primary">Add to card</a>
           </div>
-
-<!--      <div class="col">-->
-<!--        <div class="card">-->
-<!--          <img class="card-img-top" src="https://picsum.photos/100/100?random=2" alt="Card image cap">-->
-<!--          <div class="card-body">-->
-<!--            <h5 class="card-title">Product name</h5>-->
-<!--            <p class="card-text">Short description of product</p>-->
-<!--            <a href="#" class="btn btn-primary">View</a>-->
-<!--            <a href="#" class="btn btn-primary">Add to card</a>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="col">-->
-<!--        <div class="card">-->
-<!--          <img class="card-img-top" src="https://picsum.photos/100/100?random=3" alt="Card image cap">-->
-<!--          <div class="card-body">-->
-<!--            <h5 class="card-title">Product name</h5>-->
-<!--            <p class="card-text">Short description of product</p>-->
-<!--            <a href="#" class="btn btn-primary">View</a>-->
-<!--            <a href="#" class="btn btn-primary">Add to card</a>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="col">-->
-<!--        <div class="card">-->
-<!--          <img class="card-img-top" src="https://picsum.photos/100/100?random=4" alt="Card image cap">-->
-<!--          <div class="card-body">-->
-<!--            <h5 class="card-title">Product name</h5>-->
-<!--            <p class="card-text">Short description of product</p>-->
-<!--            <a href="#" class="btn btn-primary">View</a>-->
-<!--            <a href="#" class="btn btn-primary">Add to card</a>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
+        </div>
+      </div>
 
     </div>
 
