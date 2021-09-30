@@ -60,4 +60,9 @@
         <tagDatabase tag="v-7.0"/>
     </changeSet>
 
+    <include file="v-8.0/root.changelog.v-8.0.xml" relativeToChangelogFile="true"/>
+    <changeSet id="700" author="ivan_antasyuk">
+        <tagDatabase tag="v-7.0"/>
+    </changeSet>
+
 </databaseChangeLog>
