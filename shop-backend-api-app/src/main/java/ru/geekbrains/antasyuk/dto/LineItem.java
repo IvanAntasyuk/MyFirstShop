@@ -1,4 +1,5 @@
 package ru.geekbrains.antasyuk.dto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -6,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LineItem implements Serializable {
 
     private Long productId;
