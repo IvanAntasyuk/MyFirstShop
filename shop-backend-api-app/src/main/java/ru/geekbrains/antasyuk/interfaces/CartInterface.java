@@ -18,4 +18,6 @@ public interface CartInterface {
 
     BigDecimal getSubTotal();
 
+    void clearCart();
+
 }

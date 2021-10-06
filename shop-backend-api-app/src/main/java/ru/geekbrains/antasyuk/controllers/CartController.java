@@ -51,8 +51,12 @@ public class CartController {
 
     @PostMapping("/decries")
     public void decriesQty(@RequestBody LineItem lineItem){
-        System.out.println("decries");
         cartService.removeProductQty(lineItem, lineItem.getQty());
     }
+
+    @PostMapping("/deleteAll")
+    public void clearCart(){
+        cartService.clearCart();
+    };
 
 }

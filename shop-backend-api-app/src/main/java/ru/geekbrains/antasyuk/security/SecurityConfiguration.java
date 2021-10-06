@@ -13,18 +13,25 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import javax.servlet.http.HttpServletResponse;
-@JsonIgnoreProperties(ignoreUnknown = true)
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfiguration {
 
     @Autowired
-    public void authConfigure(AuthenticationManagerBuilder auth,
-                              PasswordEncoder passwordEncoder) throws Exception {
+    public void authConfig(AuthenticationManagerBuilder auth,
+                           PasswordEncoder passwordEncoder,
+                           UserAuthService userAuthService) throws Exception {
+        //in memory provaider
         auth.inMemoryAuthentication()
                 .withUser("mem_user")
-                .password(passwordEncoder.encode("password"))
-                .roles("ADMIN", "SUPER_ADMIN");
+                .password(passwordEncoder.encode("mem_user")) //шифрование пароля в оперативной памяти
+                .roles("SUPER_ADMIN")
+                .and()
+                .withUser("mem_guest")
+                .password(passwordEncoder.encode("mem_guest"))
+                .roles("GUEST");
+
+        auth.userDetailsService(userAuthService);
     }
 
     @Configuration
@@ -62,4 +69,3 @@ public class SecurityConfiguration {
         }
     }
 }
-

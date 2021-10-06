@@ -8,12 +8,8 @@ import java.util.List;
 
 public interface OrderInterface {
 
-    List<OrderDto> getAllOrders();
 
-    List<OrderDto> getOrderByUser(String username);
+    List<OrderDto> findOrdersByUsername(String username);
 
-    void addOrder(LineItem lineItem, BigDecimal price);
-
-    OrderDto viewOrder(Long id);
-
+    void createOrder(String username);
 }

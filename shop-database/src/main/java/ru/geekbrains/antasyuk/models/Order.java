@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Data
@@ -15,28 +17,36 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
+    @Column(nullable = false, name = "order_date")
+    private LocalDateTime orderDate;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(nullable = false)
-    private BigDecimal price;
+    @Column(nullable = false,name= "total_price")
+    private BigDecimal totalPrice;
 
-    @Column(nullable = false)
-    private String status;
-
-    @Column
-    private String date;
-
-    public Order(Long id, BigDecimal price, String status,User user,String date) {
-        this.id = id;
-        this.price = price;
-        this.status = status;
-        this.user=user;
-        this.date=date;
-    }
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderLineItem> orderLineItems;
 
     public Order() {
+    }
 
+    public Order(Long id, LocalDateTime orderDate, OrderStatus status, User user,BigDecimal totalPrice) {
+        this.id = id;
+        this.orderDate = orderDate;
+        this.status = status;
+        this.user = user;
+        this.totalPrice=totalPrice;
+
+    }
+
+    public enum OrderStatus {
+        CREATED, PROCESSED, IN_DELIVERY, DELIVERED, CLOSED, CANCELED
     }
 }
