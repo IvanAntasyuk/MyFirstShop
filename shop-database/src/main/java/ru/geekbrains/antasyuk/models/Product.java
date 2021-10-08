@@ -44,6 +44,9 @@ public class Product {
     @Column(name = "main_picture_id")
     private Long mainPicture;
 
+    @OneToMany(mappedBy = "order")
+    private List<OrderLineItem> orderLineItems;
+
 
     public Product(String title, BigDecimal cost, Category category) {
         this.title = title;

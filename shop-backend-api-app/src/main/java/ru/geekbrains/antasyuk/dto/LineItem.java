@@ -1,11 +1,16 @@
 package ru.geekbrains.antasyuk.dto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+
 @Data
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LineItem implements Serializable {
 
     private Long productId;
@@ -29,7 +34,7 @@ public class LineItem implements Serializable {
     }
 
     public BigDecimal getItemTotal(){
-        return productDto.getCost().multiply(new BigDecimal(qty));
+        return productDto.getPrice().multiply(new BigDecimal(qty));
     }
 
     @Override
