@@ -1,9 +1,13 @@
 package ru.geekbrains.antasyuk.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.antasyuk.dto.OrderDto;
+import ru.geekbrains.antasyuk.dto.OrderMessage;
 import ru.geekbrains.antasyuk.interfaces.OrderInterface;
 import ru.geekbrains.antasyuk.interfaces.OrderRepository;
 import ru.geekbrains.antasyuk.interfaces.ProductRepository;
@@ -31,15 +35,21 @@ public class OrderService implements OrderInterface{
 
     private final ProductRepository productRepository;
 
+    private final RabbitTemplate rabbitTemplate;
+
+    private final SimpMessagingTemplate template;
+
     @Autowired
     public OrderService(OrderRepository orderRepository,
                         CartService cartService,
                         UserRepository userRepository,
-                        ProductRepository productRepository) {
+                        ProductRepository productRepository, RabbitTemplate rabbitTemplate, SimpMessagingTemplate template) {
         this.orderRepository = orderRepository;
         this.cartService = cartService;
         this.userRepository = userRepository;
         this.productRepository = productRepository;
+        this.rabbitTemplate = rabbitTemplate;
+        this.template = template;
     }
 
     public List<OrderDto> findOrdersByUsername(String username) {
@@ -94,10 +104,18 @@ public class OrderService implements OrderInterface{
 
 
         orderRepository.save(order);
+        rabbitTemplate.convertAndSend("order.exchange", "new_order", new OrderMessage(order.getId(), order.getStatus().name()));
+
     }
 
     private Product findProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No product with id"));
+    }
+
+    @RabbitListener(queues = "processed.order.queue")
+    public void receive(OrderMessage order) {
+        logger.info("Order with id '{}' state change to '{}'", order.getId(), order.getState());
+        template.convertAndSend("/order_out/order", order);
     }
 }
