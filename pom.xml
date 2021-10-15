@@ -13,19 +13,34 @@
     <artifactId>MyShop</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <java.version>11</java.version>
         <liquibase.version>4.3.1</liquibase.version>
-
+        <spring-cloud.version>2020.0.4</spring-cloud.version>
     </properties>
     <modules>
         <module>shop-database</module>
         <module>shop-admin-app</module>
         <module>shop-backend-api-app</module>
         <module>picture-service</module>
+        <module>picture-service-app</module>
+        <module>spring-cloud-config</module>
+        <module>spring-eureka</module>
+        <module>spring-cloud-gateway</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
