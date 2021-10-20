@@ -6,6 +6,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+import ru.geekbrains.antasyuk.dto.AllCartDto;
 import ru.geekbrains.antasyuk.dto.OrderDto;
 import ru.geekbrains.antasyuk.dto.OrderMessage;
 import ru.geekbrains.antasyuk.interfaces.OrderInterface;
@@ -21,7 +22,9 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
 @Service
 public class OrderService implements OrderInterface{
 
@@ -41,9 +44,11 @@ public class OrderService implements OrderInterface{
 
     @Autowired
     public OrderService(OrderRepository orderRepository,
-                        CartService cartService,
-                        UserRepository userRepository,
-                        ProductRepository productRepository, RabbitTemplate rabbitTemplate, SimpMessagingTemplate template) {
+                            CartService cartService,
+                            UserRepository userRepository,
+                            ProductRepository productRepository,
+                            RabbitTemplate rabbitTemplate,
+                            SimpMessagingTemplate template) {
         this.orderRepository = orderRepository;
         this.cartService = cartService;
         this.userRepository = userRepository;
@@ -53,20 +58,14 @@ public class OrderService implements OrderInterface{
     }
 
     public List<OrderDto> findOrdersByUsername(String username) {
-        return orderRepository.findAllByUsername(username).stream()
-                .map(order->
-                        new OrderDto(order.getId(),
-                                order.getTotalPrice(),
-                                order.getStatus().name(),
-                                order.getOrderDate(),
-                                username
-                        ))
-                .collect(Collectors.toList());
-
+        return orderRepository.findAllByUsername(username)
+                .stream()
+                .map(OrderDto::new)
+                .collect(toList());
     }
 
-    @Transactional
-    public void createOrder(String username) {
+    @Override
+    public void createOrder(String username, AllCartDto allCartDto) {
         if (cartService.getLineItems().isEmpty()) {
             logger.info("Can't create order for empty Cart");
             return;
@@ -75,14 +74,12 @@ public class OrderService implements OrderInterface{
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-
-        Order order = orderRepository.save(new Order(
-                null,
+        Order order = new Order(null,
                 LocalDateTime.now(),
                 Order.OrderStatus.CREATED,
                 user,
-                new BigDecimal(0)
-        ));
+                allCartDto.getSubtotal()
+        );
 
         List<OrderLineItem> orderLineItems = cartService.getLineItems()
                 .stream()
@@ -95,17 +92,12 @@ public class OrderService implements OrderInterface{
                         li.getColor(),
                         li.getMaterial()
                 ))
-                .collect(Collectors.toList());
+                .collect(toList());
         order.setOrderLineItems(orderLineItems);
-//       вычисляем общу сумму заказа
-        order.setTotalPrice(orderLineItems.stream()
-                .map(orderLineItem -> orderLineItem.getProduct().getCost())
-                .reduce((x,y)->x.add(y)).get());
-
-
         orderRepository.save(order);
-        rabbitTemplate.convertAndSend("order.exchange", "new_order", new OrderMessage(order.getId(), order.getStatus().name()));
-
+        cartService.clearCart();
+        rabbitTemplate.convertAndSend("order.exchange", "new_order",
+                new OrderMessage(order.getId(), order.getStatus().name()));
     }
 
     private Product findProductById(Long id) {
@@ -114,8 +106,20 @@ public class OrderService implements OrderInterface{
     }
 
     @RabbitListener(queues = "processed.order.queue")
-    public void receive(OrderMessage order) {
-        logger.info("Order with id '{}' state change to '{}'", order.getId(), order.getState());
-        template.convertAndSend("/order_out/order", order);
+    public void receive(OrderMessage msg) {
+        logger.info("Order with id '{}' state change to '{}'", msg.getId(), msg.getStatus());
+        Optional<Order> oOrder = orderRepository.findById(msg.getId());
+        if (oOrder.isPresent()) {
+            Order order = oOrder.get();
+            for (Order.OrderStatus status: Order.OrderStatus.values()) {
+                if (status.name().equals(msg.getStatus())) {
+                    order.setStatus(status);
+                    break;
+                }
+            }
+            orderRepository.save(order);
+            template.convertAndSend("/order_out/order",
+                    new OrderDto(order.getId(), order.getStatus()));
+        }
     }
 }
