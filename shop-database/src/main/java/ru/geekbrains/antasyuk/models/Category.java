@@ -17,6 +17,9 @@ public class Category {
     @Column(name="category_name",length = 512,nullable = false)
     private String categoryName;
 
+    @Column(name="description_name",length = 512)
+    private String descriptionName;
+
     @OneToMany(mappedBy = "category")
     List<Product> products;
 
@@ -31,5 +34,10 @@ public class Category {
     public Category(Long id, String s) {
         this.id=id;
         this.categoryName=s;
+    }
+    public Category(Long id, String categoryName, String descriptionName) {
+        this.id = id;
+        this.categoryName = categoryName;
+        this.descriptionName = descriptionName;
     }
 }

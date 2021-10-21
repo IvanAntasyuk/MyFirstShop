@@ -53,7 +53,12 @@ public class Product {
         this.cost = cost;
         this.category=category;
     }
-
+    public Product(String title, BigDecimal cost, String description, Category category) {
+        this.title = title;
+        this.cost = cost;
+        this.description = description;
+        this.category = category;
+    }
     public Product(String title, BigDecimal cost, Category category,Brand brand) {
         this.title = title;
         this.cost = cost;
