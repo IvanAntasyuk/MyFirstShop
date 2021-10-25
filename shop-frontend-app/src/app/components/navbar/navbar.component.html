@@ -1,0 +1,43 @@
+<nav class="nav backgound-nav align-baseline marg-bottom ">
+  <div class="container-fluid d-flex justify-content-between align-items-center w-100">
+    <ul class="nav d-none d-md-flex">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">
+          <i class="ui-menu-icon">News</i>
+        </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link"
+           [class.active]="isProductGalleryPage"
+           [attr.aria-current]="isProductGalleryPage ? 'page' : undefined"
+           routerLink="/product">
+          <i class="ui-menu-icon">Products</i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-hover" aria-labelledby="productMenu">
+          <ul>
+            <li class="dropdown-item">1</li>
+            <li class="dropdown-item">2</li>
+            <li class="dropdown-item">3</li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" routerLink="order">
+          <i class="ui-menu-icon">Order</i>
+        </a>
+      </li>
+    </ul>
+    <form class="d-flex">
+      <button *ngIf="!auth.isAuthenticated()" class="btn btn-outline-success" routerLink="/login">Login</button>
+      <button *ngIf="auth.isAuthenticated()" class="btn btn-outline-success" (click)="logout()">Logout</button>
+    </form>
+    <div class="form-inline ui-icon-background button-color-nav">
+      <a class="nav-link"
+         [class.active]="isCartPage"
+         [attr.aria-current]="isCartPage ? 'page' : undefined"
+         routerLink="/cart">
+        <li class="fa fa-shopping-cart fa-2x" aria-hidden="true"></li>
+      </a>
+    </div>
+  </div>
+</nav>

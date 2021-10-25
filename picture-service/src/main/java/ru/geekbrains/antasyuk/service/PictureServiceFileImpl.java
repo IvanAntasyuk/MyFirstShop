@@ -78,3 +78,59 @@ public class PictureServiceFileImpl implements PictureService {
     }
 
 }
+//    private static final Logger logger = LoggerFactory.getLogger(PictureService.class);
+//
+//    @Value("${picture.storage.path}")
+//    private String storagePath;
+//
+//    private final PictureRepository pictureRepository;
+//
+//    @Autowired
+//    public PictureServiceFileImpl(PictureRepository pictureRepository) {
+//        this.pictureRepository = pictureRepository;
+//    }
+//
+//    @Override
+//    public Optional<String> getPictureContentTypeById(long id) {
+//        return pictureRepository.findById(id)
+//                .map(Picture::getContentType);
+//    }
+//
+//    @Override
+//    public Optional<byte[]> getPictureDataById(long id) {
+//        return pictureRepository.findById(id)
+//                .map(pic -> Paths.get(storagePath, pic.getStorageUUID()))
+//                .filter(Files::exists)
+//                .map(path -> {
+//                    try {
+//                        return Files.readAllBytes(path);
+//                    } catch (IOException ex) {
+//                        logger.error("Can't read file for picture with id " + id, ex);
+//                        throw new RuntimeException(ex);
+//                    }
+//                });
+//    }
+//
+//    @Override
+//    public String createPicture(byte[] picture) {
+//        String fileName = UUID.randomUUID().toString();
+//        try (OutputStream os = Files.newOutputStream(Paths.get(storagePath, fileName))) {
+//            os.write(picture);
+//        } catch (IOException ex) {
+//            logger.error("Can't write file", ex);
+//            throw new RuntimeException(ex);
+//        }
+//        return fileName;
+//    }
+//
+//    @Override
+//    @Transactional
+//    public void deletePicture(Long id){
+//        try {
+//            Files.delete(Path.of(storagePath+"/"+pictureRepository.findById(id).get().getName()));
+//        } catch (IOException ex) {
+//            logger.error("File not find in picture folder ",ex);
+//        }
+//        pictureRepository.deleteById(id);
+//    }
+
