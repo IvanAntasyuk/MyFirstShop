@@ -1,17 +1,19 @@
 package ru.geekbrains.antasyuk.dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 public class OrderMessage {
+
     private Long id;
 
-    private String state;
+    private String status;
 
-    public OrderMessage(Long id, String state) {
+    public OrderMessage(Long id, String status) {
         this.id = id;
-        this.state = state;
+        this.status = status;
+    }
+
+    public OrderMessage() {
     }
 }

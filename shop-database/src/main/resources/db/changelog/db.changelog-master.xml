@@ -65,4 +65,19 @@
         <tagDatabase tag="v-7.0"/>
     </changeSet>
 
+    <include file="v-9.0/root.changelog.v-9.0.xml" relativeToChangelogFile="true"/>
+    <changeSet id="900" author="ivan_antasyuk">
+        <tagDatabase tag="v-9.0"/>
+    </changeSet>
+
+    <include file="v-10.0/root.changelog.v-10.0.xml" relativeToChangelogFile="true"/>
+    <changeSet id="110" author="ivan_antasyuk">
+        <tagDatabase tag="v-10.0"/>
+    </changeSet>
+
+    <include file="v-10.1/root.changelog.v-10.1.xml" relativeToChangelogFile="true"/>
+    <changeSet id="111" author="ivan_antasyuk">
+        <tagDatabase tag="v-10.1"/>
+    </changeSet>
+
 </databaseChangeLog>

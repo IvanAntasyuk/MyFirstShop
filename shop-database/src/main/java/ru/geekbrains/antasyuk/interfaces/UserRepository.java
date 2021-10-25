@@ -9,7 +9,7 @@ import ru.geekbrains.antasyuk.models.User;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User,Long>, JpaSpecificationExecutor<User> {
+public interface  UserRepository extends JpaRepository<User,Long>, JpaSpecificationExecutor<User> {
     List<User> findByUsernameStartsWith(String prefix);
 
     @Query("select u " +

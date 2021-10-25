@@ -17,7 +17,6 @@ import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { ProductGalleryPageComponent } from './pages/product-gallery-page/product-gallery-page.component';
 import { ProductInfoPageComponent } from './pages/product-info-page/product-info-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
-import { OrderComponent } from './components/order/order.component';
 
 @NgModule({
   declarations: [
@@ -32,8 +31,7 @@ import { OrderComponent } from './components/order/order.component';
     LoginPageComponent,
     RegisterPageComponent,
     OrderPageComponent,
-    PaginationComponent,
-    OrderComponent
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

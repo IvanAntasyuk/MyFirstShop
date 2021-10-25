@@ -26,7 +26,7 @@ public class RabbitMqReceiver {
             for (OrderStatus status : OrderStatus.values()) {
                 try {
                     Thread.sleep(10000);
-                    order.setState(status.name());
+                    order.setStatus(status.name());
                     logger.info("Changing status for order '{}' to '{}'", order.getId(), status.name());
                     rabbitTemplate.convertAndSend("order.exchange", "processed_order", order);
                 } catch (InterruptedException e) {

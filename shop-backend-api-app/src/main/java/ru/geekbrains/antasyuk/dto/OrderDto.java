@@ -1,6 +1,7 @@
 package ru.geekbrains.antasyuk.dto;
 
 import lombok.Data;
+import ru.geekbrains.antasyuk.models.Order;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -10,23 +11,28 @@ import java.time.LocalDateTime;
 public class OrderDto {
 
     private Long id;
-
     private BigDecimal price;
-
-    private  String status;
-
-    private LocalDateTime date;
-
-    private String username;
+    private LocalDateTime orderDate;
+    private Order.OrderStatus status;
 
     public OrderDto() {
     }
 
-    public OrderDto(Long id, BigDecimal price, String status, LocalDateTime date,String username) {
+    public OrderDto(Long id, BigDecimal price, LocalDateTime orderDate, Order.OrderStatus status) {
         this.id = id;
         this.price = price;
+        this.orderDate = orderDate;
         this.status = status;
-        this.date = date;
-        this.username = username;
     }
+
+    public OrderDto(Long id, Order.OrderStatus status) {
+        this.id = id;
+        this.status = status;
+    }
+
+    public OrderDto(Order order) {
+        this(order.getId(), order.getTotalPrice(), order.getOrderDate(), order.getStatus());
+    }
+
+
 }

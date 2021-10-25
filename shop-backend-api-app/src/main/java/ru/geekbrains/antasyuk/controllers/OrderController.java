@@ -3,10 +3,8 @@ package ru.geekbrains.antasyuk.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.antasyuk.dto.AllCartDto;
 import ru.geekbrains.antasyuk.dto.OrderDto;
 import ru.geekbrains.antasyuk.services.OrderService;
 
@@ -25,8 +23,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public void createOrder(Authentication auth) {
-        orderService.createOrder(auth.getName());
+    public void createOrder(Authentication auth, @RequestBody AllCartDto allCartDto) {
+        orderService.createOrder(auth.getName(), allCartDto);
     }
 
     @GetMapping("/all")
