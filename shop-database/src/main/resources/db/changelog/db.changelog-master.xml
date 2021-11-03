@@ -9,75 +9,80 @@
         <runningAs username="root"/>
     </preConditions>
 
-    <changeSet id="0" author="ivan_antasyuk">
-        <tagDatabase tag="db_init"/>
-    </changeSet>
-
-<!--    <include file="v-1.0/root.changelog.v-1.0.xml" relativeToChangelogFile="true"/>-->
-
-<!--    <changeSet id="100" author="ivan_antasyuk">-->
-<!--        <tagDatabase tag="v-1.0"/>-->
+<!--    <changeSet id="0" author="ivan_antasyuk">-->
+<!--        <tagDatabase tag="db_init"/>-->
 <!--    </changeSet>-->
 
-    <include file="v-2.0/root.changelog.v-2.0.xml" relativeToChangelogFile="true"/>
+<!--&lt;!&ndash;    <include file="v-1.0/root.changelog.v-1.0.xml" relativeToChangelogFile="true"/>&ndash;&gt;-->
 
-    <changeSet id="200" author="ivan_antasyuk">
-        <tagDatabase tag="v-2.0"/>
-    </changeSet>
+<!--&lt;!&ndash;    <changeSet id="100" author="ivan_antasyuk">&ndash;&gt;-->
+<!--&lt;!&ndash;        <tagDatabase tag="v-1.0"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    </changeSet>&ndash;&gt;-->
 
-    <include file="v-3.0/root.changelog.v-3.0.xml" relativeToChangelogFile="true"/>
-    <changeSet id="300" author="ivan_antasyuk">
-        <tagDatabase tag="v-3.0"/>
-    </changeSet>
+<!--    <include file="v-2.0/root.changelog.v-2.0.xml" relativeToChangelogFile="true"/>-->
 
-<!--    <include file="v-4.0/root.changelog.v-4.0.xml" relativeToChangelogFile="true"/>-->
-<!--    <changeSet id="400" author="ivan_antasyuk">-->
-<!--        <tagDatabase tag="v-4.0"/>-->
+<!--    <changeSet id="200" author="ivan_antasyuk">-->
+<!--        <tagDatabase tag="v-2.0"/>-->
 <!--    </changeSet>-->
 
-    <include file="v-5.0/root.changelog.v-5.0.xml" relativeToChangelogFile="true"/>
-    <changeSet id="500" author="ivan_antasyuk">
-        <tagDatabase tag="v-5.0"/>
-    </changeSet>
+<!--    <include file="v-3.0/root.changelog.v-3.0.xml" relativeToChangelogFile="true"/>-->
+<!--    <changeSet id="300" author="ivan_antasyuk">-->
+<!--        <tagDatabase tag="v-3.0"/>-->
+<!--    </changeSet>-->
 
-    <include file="v-6.0/root.changelog.v-6.0.xml" relativeToChangelogFile="true"/>
-    <changeSet id="600" author="ivan_antasyuk">
-        <tagDatabase tag="v-.6.0"/>
-    </changeSet>
+<!--&lt;!&ndash;    <include file="v-4.0/root.changelog.v-4.0.xml" relativeToChangelogFile="true"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <changeSet id="400" author="ivan_antasyuk">&ndash;&gt;-->
+<!--&lt;!&ndash;        <tagDatabase tag="v-4.0"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    </changeSet>&ndash;&gt;-->
 
-    <include file="v-6.1/root.changelog.v-6.1.xml" relativeToChangelogFile="true"/>
-    <changeSet id="610" author="ivan_antasyuk">
-        <tagDatabase tag="v-.6.0"/>
-    </changeSet>
+<!--    <include file="v-5.0/root.changelog.v-5.0.xml" relativeToChangelogFile="true"/>-->
+<!--    <changeSet id="500" author="ivan_antasyuk">-->
+<!--        <tagDatabase tag="v-5.0"/>-->
+<!--    </changeSet>-->
 
-    <include file="v-6.2/root.changelog.v-6.2.xml" relativeToChangelogFile="true"/>
-    <changeSet id="620" author="ivan_antasyuk">
-        <tagDatabase tag="v-.6.2"/>
-    </changeSet>
+<!--    <include file="v-6.0/root.changelog.v-6.0.xml" relativeToChangelogFile="true"/>-->
+<!--    <changeSet id="600" author="ivan_antasyuk">-->
+<!--        <tagDatabase tag="v-.6.0"/>-->
+<!--    </changeSet>-->
 
-    <include file="v-7.0/root.changelog.v-7.0.xml" relativeToChangelogFile="true"/>
-    <changeSet id="700" author="ivan_antasyuk">
-        <tagDatabase tag="v-7.0"/>
-    </changeSet>
+<!--    <include file="v-6.1/root.changelog.v-6.1.xml" relativeToChangelogFile="true"/>-->
+<!--    <changeSet id="610" author="ivan_antasyuk">-->
+<!--        <tagDatabase tag="v-.6.0"/>-->
+<!--    </changeSet>-->
 
-    <include file="v-8.0/root.changelog.v-8.0.xml" relativeToChangelogFile="true"/>
-    <changeSet id="700" author="ivan_antasyuk">
-        <tagDatabase tag="v-7.0"/>
-    </changeSet>
+<!--    <include file="v-6.2/root.changelog.v-6.2.xml" relativeToChangelogFile="true"/>-->
+<!--    <changeSet id="620" author="ivan_antasyuk">-->
+<!--        <tagDatabase tag="v-.6.2"/>-->
+<!--    </changeSet>-->
 
-    <include file="v-9.0/root.changelog.v-9.0.xml" relativeToChangelogFile="true"/>
-    <changeSet id="900" author="ivan_antasyuk">
-        <tagDatabase tag="v-9.0"/>
-    </changeSet>
+<!--    <include file="v-7.0/root.changelog.v-7.0.xml" relativeToChangelogFile="true"/>-->
+<!--    <changeSet id="700" author="ivan_antasyuk">-->
+<!--        <tagDatabase tag="v-7.0"/>-->
+<!--    </changeSet>-->
 
-    <include file="v-10.0/root.changelog.v-10.0.xml" relativeToChangelogFile="true"/>
-    <changeSet id="110" author="ivan_antasyuk">
-        <tagDatabase tag="v-10.0"/>
-    </changeSet>
+<!--    <include file="v-8.0/root.changelog.v-8.0.xml" relativeToChangelogFile="true"/>-->
+<!--    <changeSet id="700" author="ivan_antasyuk">-->
+<!--        <tagDatabase tag="v-7.0"/>-->
+<!--    </changeSet>-->
 
-    <include file="v-10.1/root.changelog.v-10.1.xml" relativeToChangelogFile="true"/>
-    <changeSet id="111" author="ivan_antasyuk">
-        <tagDatabase tag="v-10.1"/>
+<!--    <include file="v-9.0/root.changelog.v-9.0.xml" relativeToChangelogFile="true"/>-->
+<!--    <changeSet id="900" author="ivan_antasyuk">-->
+<!--        <tagDatabase tag="v-9.0"/>-->
+<!--    </changeSet>-->
+
+<!--    <include file="v-10.0/root.changelog.v-10.0.xml" relativeToChangelogFile="true"/>-->
+<!--    <changeSet id="110" author="ivan_antasyuk">-->
+<!--        <tagDatabase tag="v-10.0"/>-->
+<!--    </changeSet>-->
+
+<!--    <include file="v-10.1/root.changelog.v-10.1.xml" relativeToChangelogFile="true"/>-->
+<!--    <changeSet id="111" author="ivan_antasyuk">-->
+<!--        <tagDatabase tag="v-10.1"/>-->
+<!--    </changeSet>-->
+
+    <include file="v-11.0/root.changelog.v-11.0.xml" relativeToChangelogFile="true"/>
+    <changeSet id="011" author="ivan_antasyuk">
+        <tagDatabase tag="v-11.0"/>
     </changeSet>
 
 </databaseChangeLog>

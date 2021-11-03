@@ -1,0 +1,74 @@
+version: '3'
+services:
+
+
+  cloud-config:
+    image: registry.heroku.com/geek-spring-cloud-config/web:latest
+    ports:
+    - 8888:8888
+
+
+  delivery-service:
+    image: registry.heroku.com/geek-shop-delivery-service/web:latest
+
+
+  spring-integration-service:
+      image: registry.heroku.com/geek-spring-integration-demo/web:latest
+
+
+  shop-admin:
+    image: shop-admin-app:1.0-SNAPSHOT
+    ports:
+      - 8080:8080
+    volumes:
+      - file-storage:/var/storage
+    command: bash -c "/apps/wait-for-service.sh db 3306 && /apps/wait-for-service.sh cloud-config 8888 && /apps/entrypoint.sh"
+
+  backend-app:
+    image: registry.heroku.com/geek-shop-backend-api-app/web:latest
+    ports:
+      - 8081:8081
+    command: bash -c "/apps/wait-for-service.sh db 3306 && /apps/wait-for-service.sh cloud-config 8888 && /apps/entrypoint.sh"
+
+
+  picture-service:
+    image: registry.heroku.com/geek-picture-service-app/web:latest
+    ports:
+    - 8083:8083
+    volumes:
+      - file-storage:/var/pictures
+    command: bash -c "/apps/wait-for-service.sh db 3306 && /apps/wait-for-service.sh cloud-config 8888 && /apps/entrypoint.sh"
+
+  db:
+  #    image: postgres
+  #    restart: always
+  #    environment:
+  #      POSTGRES_PASSWORD: password
+  #    ports:
+  #    - 5432:5432
+
+    image: mysql:8.0.23
+    environment:
+      MYSQL_ROOT_PASSWORD: "rootroot"
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  redis:
+    image: 'guest/guest:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - 6379:6379
+
+  rabbitmq:
+    image: 'guest/guest:latest'
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+volumes:
+  mysql-data:
+  file-storage:
+
