@@ -27,6 +27,10 @@ public class CartService implements CartInterface{
         this.lineItems = lineItems.stream().collect(Collectors.toMap(li -> li, LineItem::getQty));
     }
 
+    public CartService() {
+
+    }
+
     @Override
     public void addProductQty(ProductDto productDto, String color, String material, int qty) {
         LineItem lineItem = new LineItem(productDto,color,material);
